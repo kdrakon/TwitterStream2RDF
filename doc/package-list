@@ -1,1 +1,4 @@
+com.mrsjstudios.twitterstream2rdf.generator
+com.mrsjstudios.twitterstream2rdf.rdf.mapping
 com.mrsjstudios.twitterstream2rdf.rdf.repository
+com.mrsjstudios.twitterstream2rdf.stream

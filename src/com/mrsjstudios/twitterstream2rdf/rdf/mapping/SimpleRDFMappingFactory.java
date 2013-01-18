@@ -17,9 +17,9 @@ import org.openrdf.model.vocabulary.XMLSchema;
 import twitter4j.Status;
 
 /**
- * Factory that generates a simple RDF mapping for use in a Tweet repository. The
- * returned {@link RDFMapping} contains the map() method that defines the actual
- * transformation of a Tweet into RDF triples.
+ * Factory that generates a simple RDF mapping for use in a Tweet repository.
+ * The returned {@link RDFMapping} contains the map() method that defines the
+ * actual transformation of a Tweet into RDF triples.
  * 
  * @author Sean Policarpio
  * 
@@ -64,8 +64,8 @@ public class SimpleRDFMappingFactory {
 	}
 
 	/**
-	 * Builds the {@link RDFMapping} with its associated
-	 * {@link RDFMappingMethod}.
+	 * Builds the {@link RDFMapping} with the associated values from the
+	 * factory.
 	 * 
 	 * @return
 	 */
@@ -82,19 +82,20 @@ public class SimpleRDFMappingFactory {
 		public List<Statement> map(Status tweet) {
 
 			List<Statement> statements = new ArrayList<Statement>();
-			
+
 			URI tweetURI = new URIImpl(getNamespaceURI().toString() + getTweetIdURI().toString());
 
 			Statement classTriple = new StatementImpl(tweetURI, RDFS.CLASS, getTweetClassURI());
 			statements.add(classTriple);
-			
+
 			Statement tweeterTriple = new StatementImpl(tweetURI, getUserIdURI(), new LiteralImpl(tweet.getUser().getName()));
 			statements.add(tweeterTriple);
-			
+
 			Statement tweetTextTriple = new StatementImpl(tweetURI, getTextURI(), new LiteralImpl(tweet.getText()));
 			statements.add(tweetTextTriple);
-			
-			Statement creationTweet = new StatementImpl(tweetURI, getCreatedAtURI(), new LiteralImpl(tweet.getCreatedAt().toString(), XMLSchema.DATE));
+
+			Statement creationTweet = new StatementImpl(tweetURI, getCreatedAtURI(), new LiteralImpl(tweet.getCreatedAt()
+					.toString(), XMLSchema.DATE));
 			statements.add(creationTweet);
 
 			return statements;
