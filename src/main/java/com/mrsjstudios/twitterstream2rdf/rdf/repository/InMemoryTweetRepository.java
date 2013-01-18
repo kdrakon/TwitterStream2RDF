@@ -58,6 +58,11 @@ public class InMemoryTweetRepository implements TweetRepository {
 		tweetRepository = new SailRepository(new MemoryStore());
 		tweetRepository.initialize();
 	}
+	
+	@Override
+	public void deinitialiseRepository() throws RepositoryException {
+		tweetRepository.shutDown();		
+	}	
 
 	@Override
 	public void setRDFMapping(RDFMapping mapping) {
@@ -90,7 +95,6 @@ public class InMemoryTweetRepository implements TweetRepository {
 	public void dumpRepositoryToFile(File dumpFile, RDFFormat format) {
 		// TODO Auto-generated method stub
 		logger.error("Not yet implemented.");
-
 	}
 
 }

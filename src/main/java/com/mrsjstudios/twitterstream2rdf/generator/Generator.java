@@ -18,7 +18,7 @@ import com.mrsjstudios.twitterstream2rdf.stream.StreamReader;
  * 
  */
 public abstract class Generator {
-	
+
 	/**
 	 * This generators RDF repository for tweets.
 	 */
@@ -27,7 +27,7 @@ public abstract class Generator {
 	/**
 	 * This generators Twitter stream reader.
 	 */
-	protected StreamReader reader;	
+	protected StreamReader reader;
 
 	/**
 	 * Set the RDF repository that this generator should store its tweets in.
@@ -54,5 +54,21 @@ public abstract class Generator {
 	 * {@link TweetRepository}.
 	 */
 	protected abstract void send(Status tweet);
+
+	/**
+	 * Starts the generators stream and begins outputting it to the repository.
+	 * This will throw an Exception if the Generator can not start.
+	 * 
+	 * @throws Exception
+	 */
+	public abstract void start() throws Exception;
+
+	/**
+	 * Stops the generator and attempts to shutdown both the stream and
+	 * repository. This will throw an Exception if shutdown is unsuccessful.
+	 * 
+	 * @throws Exception
+	 */
+	public abstract void stop() throws Exception;
 
 }

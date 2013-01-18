@@ -3,6 +3,7 @@
  */
 package com.mrsjstudios.twitterstream2rdf.generator;
 
+import org.openrdf.repository.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +82,33 @@ public class StatusFilterGenerator extends Generator {
 	@Override
 	protected void send(Status tweet) {
 		this.repo.addTweet(tweet);
+	}
+
+	@Override
+	public void start() throws Exception {
+		try {
+
+			repo.initialiseRepository();
+			reader.start();
+
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+			throw new Exception("Could not initialise RDF repository. Generator is not started.");			
+		}
+
+	}
+
+	@Override
+	public void stop() throws Exception {
+		try {
+			
+			reader.stop();
+			repo.deinitialiseRepository();
+			
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+			throw new Exception("Could not deinitialise/shutdown RDF repository. Generator is stopping nonetheless.");
+		}
 	}
 
 }

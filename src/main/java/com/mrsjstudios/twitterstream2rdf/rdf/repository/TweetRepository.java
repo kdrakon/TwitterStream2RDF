@@ -29,6 +29,13 @@ public interface TweetRepository {
 	void initialiseRepository() throws RepositoryException;
 
 	/**
+	 * Essentially shutsdown the {@link TweetRepository}.
+	 * 
+	 * @throws RepositoryException
+	 */
+	void deinitialiseRepository() throws RepositoryException;
+
+	/**
 	 * Sets the mapping that defines the transformation of a Tweet (
 	 * {@link Status}) into a triple.
 	 * 

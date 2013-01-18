@@ -26,12 +26,12 @@ import twitter4j.Status;
  */
 public class SimpleRDFMappingFactory {
 
-	private URI namespaceURI;
-	private URI createdAtURI;
-	private URI tweetIdURI;
-	private URI textURI;
-	private URI userIdURI;
-	private URI tweetClassURI;
+	private URI namespaceURI = new URIImpl("http://blank");
+	private URI createdAtURI = new URIImpl("http://blank/createdAtURI");
+	private URI tweetIdURI = new URIImpl("http://blank/tweetIdURI");
+	private URI textURI = new URIImpl("http://blank/textURI");
+	private URI userIdURI = new URIImpl("http://blank/userIdURI");
+	private URI tweetClassURI = new URIImpl("http://blank/tweetClassURI");
 
 	public SimpleRDFMappingFactory namespaceURI(URI namespaceURI) {
 		this.namespaceURI = namespaceURI;
@@ -83,7 +83,7 @@ public class SimpleRDFMappingFactory {
 
 			List<Statement> statements = new ArrayList<Statement>();
 
-			URI tweetURI = new URIImpl(getNamespaceURI().toString() + getTweetIdURI().toString());
+			URI tweetURI = new URIImpl(getNamespaceURI().toString() + "/" + getTweetIdURI().toString());
 
 			Statement classTriple = new StatementImpl(tweetURI, RDFS.CLASS, getTweetClassURI());
 			statements.add(classTriple);
