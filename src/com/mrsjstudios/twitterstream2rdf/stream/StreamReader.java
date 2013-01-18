@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mrsjstudios.twitterstream2rdf.rdf;
+package com.mrsjstudios.twitterstream2rdf.stream;
 
 import com.mrsjstudios.twitterstream2rdf.rdf.repository.TweetRepository;
 

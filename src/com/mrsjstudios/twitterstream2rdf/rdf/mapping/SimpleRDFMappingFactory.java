@@ -8,9 +8,11 @@ import java.util.List;
 
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
+import org.openrdf.model.impl.LiteralImpl;
 import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.model.vocabulary.RDFS;
+import org.openrdf.model.vocabulary.XMLSchema;
 
 import twitter4j.Status;
 
@@ -86,10 +88,14 @@ public class SimpleRDFMappingFactory {
 			Statement classTriple = new StatementImpl(tweetURI, RDFS.CLASS, getTweetClassURI());
 			statements.add(classTriple);
 			
-			Statement tweeterTriple = new StatementImpl(tweetURI, getUserIdURI(), new URIImpl(tweet.getUser().getName()));
+			Statement tweeterTriple = new StatementImpl(tweetURI, getUserIdURI(), new LiteralImpl(tweet.getUser().getName()));
 			statements.add(tweeterTriple);
 			
+			Statement tweetTextTriple = new StatementImpl(tweetURI, getTextURI(), new LiteralImpl(tweet.getText()));
+			statements.add(tweetTextTriple);
 			
+			Statement creationTweet = new StatementImpl(tweetURI, getCreatedAtURI(), new LiteralImpl(tweet.getCreatedAt().toString(), XMLSchema.DATE));
+			statements.add(creationTweet);
 
 			return statements;
 		}

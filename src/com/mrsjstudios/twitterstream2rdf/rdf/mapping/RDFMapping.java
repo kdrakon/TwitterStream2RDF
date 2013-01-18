@@ -20,16 +20,46 @@ import twitter4j.Status;
  */
 public interface RDFMapping {
 
+	/**
+	 * The namespace URI for identifying the tweet ID.
+	 * 
+	 * @return
+	 */
 	public URI getNamespaceURI();
 
+	/**
+	 * The URI of the RDF class for the tweet.
+	 * 
+	 * @return
+	 */
 	public URI getTweetClassURI();
 
+	/**
+	 * The URI predicate for the creation date of the tweet.
+	 * 
+	 * @return
+	 */
 	public URI getCreatedAtURI();
 
+	/**
+	 * The URI predicate for the id of the tweet (long val).
+	 * 
+	 * @return
+	 */
 	public URI getTweetIdURI();
 
+	/**
+	 * The URI predicate for the actual tweets text.
+	 * 
+	 * @return
+	 */
 	public URI getTextURI();
 
+	/**
+	 * The URI predicate for the user (tweeter).
+	 * 
+	 * @return
+	 */
 	public URI getUserIdURI();
 
 	/**

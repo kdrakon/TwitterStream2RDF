@@ -44,6 +44,15 @@ public class InMemoryTweetRepository implements TweetRepository {
 	 */
 	private RDFMapping mapping;
 
+	/**
+	 * Construct an in-memory repository with the specified {@link RDFMapping}.
+	 * 
+	 * @param mapping
+	 */
+	public InMemoryTweetRepository(RDFMapping mapping) {
+		setRDFMapping(mapping);
+	}
+
 	@Override
 	public void initialiseRepository() throws RepositoryException {
 		tweetRepository = new SailRepository(new MemoryStore());
@@ -80,7 +89,7 @@ public class InMemoryTweetRepository implements TweetRepository {
 	@Override
 	public void dumpRepositoryToFile(File dumpFile, RDFFormat format) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
