@@ -3,8 +3,6 @@
  */
 package com.mrsjstudios.twitterstream2rdf.stream;
 
-import com.mrsjstudios.twitterstream2rdf.generator.Generator;
-
 import twitter4j.FilterQuery;
 import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
@@ -42,9 +40,8 @@ public class StatusFilterStreamReader implements StreamReader {
 	 */
 	private FilterQuery filter;
 
-	public StatusFilterStreamReader(Configuration conf, FilterQuery filter, StatusListener listener) {
+	public StatusFilterStreamReader(Configuration conf, FilterQuery filter) {
 		setTwitterConfiguration(conf);
-		setListener(listener);
 		this.filter = filter;
 	}
 
@@ -53,11 +50,7 @@ public class StatusFilterStreamReader implements StreamReader {
 		this.conf = conf;
 	}
 
-	/**
-	 * The listener for {@link StatusFilterStreamReader}. It is expected that it
-	 * should return all filtered statuses up to some implementation of a
-	 * {@link Generator}.
-	 */
+	@Override
 	public void setListener(StatusListener listener) {
 		this.listener = listener;
 	}

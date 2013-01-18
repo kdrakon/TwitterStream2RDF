@@ -3,9 +3,11 @@
  */
 package com.mrsjstudios.twitterstream2rdf.stream;
 
+import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.conf.Configuration;
 
+import com.mrsjstudios.twitterstream2rdf.generator.Generator;
 import com.mrsjstudios.twitterstream2rdf.rdf.repository.TweetRepository;
 
 /**
@@ -25,6 +27,16 @@ public interface StreamReader {
 	 * @param conf
 	 */
 	void setTwitterConfiguration(Configuration conf);
+
+	/**
+	 * Sets the StreamListener that is executed when the stream is active. It is
+	 * expected that it should return all filtered statuses up to some
+	 * implementation of a {@link Generator}.
+	 * 
+	 * TODO The {@link StatusListener} parameter is too restrictive, but for
+	 * some reason, I don't have access to the parent interface, StreamListener.
+	 */
+	void setListener(StatusListener listener);
 
 	/**
 	 * Starts the stream reader.
