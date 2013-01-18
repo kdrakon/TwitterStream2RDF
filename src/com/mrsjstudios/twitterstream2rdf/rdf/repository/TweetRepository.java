@@ -3,9 +3,12 @@
  */
 package com.mrsjstudios.twitterstream2rdf.rdf.repository;
 
-import org.openrdf.repository.RepositoryException;
+import java.io.File;
 
-import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMappingFactory.RDFMappingImpl;
+import org.openrdf.repository.RepositoryException;
+import org.openrdf.rio.RDFFormat;
+
+import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMapping;
 
 import twitter4j.Status;
 
@@ -31,7 +34,7 @@ public interface TweetRepository {
 	 * 
 	 * @param mapping
 	 */
-	void setRDFMapping(RDFMappingImpl mapping);
+	void setRDFMapping(RDFMapping mapping);
 
 	/**
 	 * Adds a single {@link Status} Tweet to the repository.
@@ -39,5 +42,14 @@ public interface TweetRepository {
 	 * @param tweet
 	 */
 	void addTweet(Status tweet);
+
+	/**
+	 * Dumps the complete repository - i.e. all the graphs within it - to a
+	 * file.
+	 * 
+	 * @param dumpFile
+	 * @param format
+	 */
+	void dumpRepositoryToFile(File dumpFile, RDFFormat format);
 
 }

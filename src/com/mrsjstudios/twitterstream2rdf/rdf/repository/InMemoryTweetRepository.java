@@ -3,6 +3,7 @@
  */
 package com.mrsjstudios.twitterstream2rdf.rdf.repository;
 
+import java.io.File;
 import java.util.List;
 
 import org.openrdf.model.Statement;
@@ -10,13 +11,14 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.sail.SailRepository;
+import org.openrdf.rio.RDFFormat;
 import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import twitter4j.Status;
+import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMapping;
 
-import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMappingFactory.RDFMappingImpl;
+import twitter4j.Status;
 
 /**
  * 
@@ -40,7 +42,7 @@ public class InMemoryTweetRepository implements TweetRepository {
 	/**
 	 * The mapping definition for transforming the Tweet into RDF.
 	 */
-	private RDFMappingImpl mapping;
+	private RDFMapping mapping;
 
 	@Override
 	public void initialiseRepository() throws RepositoryException {
@@ -49,7 +51,7 @@ public class InMemoryTweetRepository implements TweetRepository {
 	}
 
 	@Override
-	public void setRDFMapping(RDFMappingImpl mapping) {
+	public void setRDFMapping(RDFMapping mapping) {
 		this.mapping = mapping;
 	}
 
@@ -73,6 +75,12 @@ public class InMemoryTweetRepository implements TweetRepository {
 		RepositoryConnection con = tweetRepository.getConnection();
 		con.add(triple);
 		con.close();
+	}
+
+	@Override
+	public void dumpRepositoryToFile(File dumpFile, RDFFormat format) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
