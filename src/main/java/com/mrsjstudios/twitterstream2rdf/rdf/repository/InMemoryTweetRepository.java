@@ -89,6 +89,7 @@ public class InMemoryTweetRepository implements TweetRepository {
 	@Override
 	public void dumpRepositoryToFile(File dumpFile, RDFFormat format) {
 		// TODO Auto-generated method stub
+		logger.error("Not yet implemented.");
 
 	}
 

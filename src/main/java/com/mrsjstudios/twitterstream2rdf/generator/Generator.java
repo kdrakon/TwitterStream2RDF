@@ -18,6 +18,16 @@ import com.mrsjstudios.twitterstream2rdf.stream.StreamReader;
  * 
  */
 public abstract class Generator {
+	
+	/**
+	 * This generators RDF repository for tweets.
+	 */
+	protected TweetRepository repo;
+
+	/**
+	 * This generators Twitter stream reader.
+	 */
+	protected StreamReader reader;	
 
 	/**
 	 * Set the RDF repository that this generator should store its tweets in.

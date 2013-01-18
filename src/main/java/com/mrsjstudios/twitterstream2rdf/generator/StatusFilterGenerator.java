@@ -25,16 +25,6 @@ public class StatusFilterGenerator extends Generator {
 	 */
 	private Logger logger = LoggerFactory.getLogger(StatusFilterGenerator.class);
 
-	/**
-	 * This generators RDF repository for tweets.
-	 */
-	private TweetRepository repo;
-
-	/**
-	 * This generators Twitter stream reader.
-	 */
-	private StreamReader reader;
-
 	public StatusFilterGenerator(TweetRepository repo, StreamReader reader) {
 		setRepository(repo);
 		setStreamInput(reader);
@@ -84,13 +74,13 @@ public class StatusFilterGenerator extends Generator {
 			}
 		};
 
-		reader.setListener(listener);
+		this.reader.setListener(listener);
 
 	}
 
 	@Override
 	protected void send(Status tweet) {
-		repo.addTweet(tweet);
+		this.repo.addTweet(tweet);
 	}
 
 }
