@@ -6,6 +6,11 @@ package com.mrsjstudios.twitterstream2rdf.generator;
 import java.io.File;
 
 import org.junit.Test;
+import org.openrdf.query.BindingSet;
+import org.openrdf.query.QueryLanguage;
+import org.openrdf.query.TupleQuery;
+import org.openrdf.query.TupleQueryResult;
+import org.openrdf.repository.RepositoryConnection;
 
 import twitter4j.FilterQuery;
 import twitter4j.conf.Configuration;
@@ -61,6 +66,17 @@ public class StatusFilterGeneratorTest {
 		Generator gen = new StatusFilterGenerator(repo, reader);
 
 		gen.start();
+		
+		RepositoryConnection con = gen.getConnectionToRDFRepository();
+		
+		TupleQuery tquery = con.prepareTupleQuery(QueryLanguage.SPARQL, "select * where {?s ?p ?o.}");		
+		while(con.isOpen()){
+			TupleQueryResult tqueryResult = tquery.evaluate();
+			for (BindingSet result : tqueryResult.asList()){
+				System.out.println(result.toString());
+			}
+			
+		}
 
 	}
 }
