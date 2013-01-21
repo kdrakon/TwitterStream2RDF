@@ -3,8 +3,6 @@
  */
 package com.mrsjstudios.twitterstream2rdf.generator;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 
 import org.junit.Test;
@@ -16,7 +14,9 @@ import com.mrsjstudios.twitterstream2rdf.config.TwitterConfig;
 import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMapping;
 import com.mrsjstudios.twitterstream2rdf.rdf.mapping.SimpleRDFMappingFactory;
 import com.mrsjstudios.twitterstream2rdf.rdf.repository.InMemoryTweetRepository;
+import com.mrsjstudios.twitterstream2rdf.rdf.repository.TweetRepository;
 import com.mrsjstudios.twitterstream2rdf.stream.StatusFilterStreamReader;
+import com.mrsjstudios.twitterstream2rdf.stream.StreamReader;
 
 /**
  * @author Sean Policarpio
@@ -24,7 +24,17 @@ import com.mrsjstudios.twitterstream2rdf.stream.StatusFilterStreamReader;
  */
 public class StatusFilterGeneratorTest {
 
-	private final String FILTER_QUERY = "#test";
+	private final static String FILTER_QUERY = "#quote";
+
+	/**
+	 * Use this main to execute tests outside of the JUnit environment.
+	 * 
+	 * @param args
+	 * @throws Exception 
+	 */
+	public static void main(String[] args) throws Exception {
+		testStatusFilterWithInMemTweetRepo();
+	}
 
 	/**
 	 * Tests {@link StatusFilterGenerator} with the
@@ -34,20 +44,21 @@ public class StatusFilterGeneratorTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testStatusFilterWithInMemTweetRepo() throws Exception {
+	public static void testStatusFilterWithInMemTweetRepo() throws Exception {
 
 		RDFMapping mapping = new SimpleRDFMappingFactory().build();
 
-		InMemoryTweetRepository repo = new InMemoryTweetRepository(mapping);
+		TweetRepository repo = new InMemoryTweetRepository(mapping);
 
-		Configuration conf = TwitterConfig.readConfigFile(new File("resources/twitterconfig"));
+		Configuration conf = TwitterConfig.readConfigFile(new File(
+				"/home/kdrakon/git/TwitterStream2RDF/src/test/resources/twitterconfig"));
 
 		String[] track = { FILTER_QUERY };
 		FilterQuery filter = new FilterQuery().track(track);
 
-		StatusFilterStreamReader reader = new StatusFilterStreamReader(conf, filter);
+		StreamReader reader = new StatusFilterStreamReader(conf, filter);
 
-		StatusFilterGenerator gen = new StatusFilterGenerator(repo, reader);
+		Generator gen = new StatusFilterGenerator(repo, reader);
 
 		gen.start();
 
