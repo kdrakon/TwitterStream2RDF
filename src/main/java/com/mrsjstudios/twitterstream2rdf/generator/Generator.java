@@ -3,6 +3,9 @@
  */
 package com.mrsjstudios.twitterstream2rdf.generator;
 
+import org.openrdf.repository.RepositoryConnection;
+import org.openrdf.repository.RepositoryException;
+
 import twitter4j.Status;
 
 import com.mrsjstudios.twitterstream2rdf.rdf.mapping.RDFMapping;
@@ -70,5 +73,14 @@ public abstract class Generator {
 	 * @throws Exception
 	 */
 	public abstract void stop() throws Exception;
+
+	/**
+	 * Returns a Sesame RDF repository connection the RDF tweet repository. This
+	 * can be used to query the RDF tweets.
+	 * 
+	 * @return
+	 * @throws RepositoryException 
+	 */
+	public abstract RepositoryConnection getConnectionToRDFRepository() throws RepositoryException;
 
 }

@@ -5,6 +5,7 @@ package com.mrsjstudios.twitterstream2rdf.rdf.repository;
 
 import java.io.File;
 
+import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.rio.RDFFormat;
 
@@ -58,5 +59,13 @@ public interface TweetRepository {
 	 * @param format
 	 */
 	void dumpRepositoryToFile(File dumpFile, RDFFormat format);
+
+	/**
+	 * Returns a Sesame {@link RepositoryConnection} to the RDF database.
+	 * 
+	 * @return
+	 * @throws RepositoryException 
+	 */
+	RepositoryConnection getConnectionToRepository() throws RepositoryException;
 
 }

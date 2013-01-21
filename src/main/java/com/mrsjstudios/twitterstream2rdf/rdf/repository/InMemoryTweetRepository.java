@@ -97,4 +97,9 @@ public class InMemoryTweetRepository implements TweetRepository {
 		logger.error("Not yet implemented.");
 	}
 
+	@Override
+	public RepositoryConnection getConnectionToRepository() throws RepositoryException {
+		return tweetRepository.getConnection();
+	}
+
 }
