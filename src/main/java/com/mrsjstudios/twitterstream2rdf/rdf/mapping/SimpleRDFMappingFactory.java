@@ -4,7 +4,12 @@
 package com.mrsjstudios.twitterstream2rdf.rdf.mapping;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
@@ -13,6 +18,8 @@ import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.model.vocabulary.RDFS;
 import org.openrdf.model.vocabulary.XMLSchema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import twitter4j.Status;
 
@@ -25,6 +32,8 @@ import twitter4j.Status;
  * 
  */
 public class SimpleRDFMappingFactory {
+
+	private Logger logger = LoggerFactory.getLogger(SimpleRDFMappingFactory.class);
 
 	private URI namespaceURI = new URIImpl("http://blank");
 	private URI createdAtURI = new URIImpl("http://blank/createdAtURI");
@@ -94,9 +103,18 @@ public class SimpleRDFMappingFactory {
 			Statement tweetTextTriple = new StatementImpl(tweetURI, getTextURI(), new LiteralImpl(tweet.getText()));
 			statements.add(tweetTextTriple);
 
-			Statement creationTweet = new StatementImpl(tweetURI, getCreatedAtURI(), new LiteralImpl(tweet.getCreatedAt()
-					.toString(), XMLSchema.DATE));
-			statements.add(creationTweet);
+			GregorianCalendar c = new GregorianCalendar();
+			c.setTime(tweet.getCreatedAt());
+			try {
+				XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+				Statement creationTweet = new StatementImpl(tweetURI, getCreatedAtURI(), new LiteralImpl(
+						xmlDate.toXMLFormat(), XMLSchema.DATE));
+				statements.add(creationTweet);
+
+			} catch (DatatypeConfigurationException e) {
+				logger.error("Could not create XML Schema date for tweet.");
+				e.printStackTrace();
+			}
 
 			return statements;
 		}
